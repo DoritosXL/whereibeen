@@ -1,4 +1,8 @@
-# Getting Started with Create React App
+# Whereibeen
+
+This project's goal is to provide the user with the option to add places in a list which will in turn display these places on a map.
+
+# General node setup
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
