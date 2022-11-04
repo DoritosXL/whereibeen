@@ -11,10 +11,9 @@ import {
 import Box from '@mui/material/Box';
 import Paper from '@mui/material/Paper';
 import { TextField } from "@mui/material";
+import LocationDetail from "../location_detail/LocationDetail";
 
-
-
-function List() {  
+export default function List() {  
   const [user, loading, error] = useAuthState(auth);
   const navigate = useNavigate();
   useEffect(() => {
@@ -22,14 +21,39 @@ function List() {
     // if error log and display message accordingly
   }, [user, loading, navigate]);
 
+  const [locationState, setLocationState] = useState(
+      {
+          inputLocation: "",
+          locations: []
+      }
+  )
+
+  const handleChange = (event) => {
+      setLocationState({...locationState, inputLocation: event.target.value})
+  };
+
+  const handleSubmit = (event) => {
+      setLocationState({...locationState, locations: locationState.locations.concat(locationState.inputLocation)})      
+      event.preventDefault();
+  };
+
   return(
     <div>
       {user ? (
         <div className="list_box">
-          {/* hi {user.displayName} */}
+          hi {user.displayName}
+          <br/>
+          <br/>          
           <Box>
             <Paper elevation={3}>
-              {/* <TextField></TextField> */}
+              <form onSubmit={handleSubmit}>
+                <label>
+                  Location:
+                  <input type="text" onChange={handleChange} />
+                </label>
+                <input type="submit" value="Submit" />
+              </form>   
+              <LocationDetail location={locationState.locations}></LocationDetail>
             </Paper>
           </Box>
           
@@ -40,5 +64,3 @@ function List() {
     </div>
   )
 }
-
-export default List
